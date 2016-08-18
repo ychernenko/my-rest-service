@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>ychernenko.examples</groupId>
+        <artifactId>my-rest-service</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>my-rest-service-api</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-wadl2java-plugin</artifactId>
+                <version>3.1.6</version>
+                <executions>
+                    <execution>
+                        <id>generate-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>wadl2java</goal>
+                        </goals>
+                        <configuration>
+                            <sourceRoot>${project.build.directory}/generated-sources/src/main/java</sourceRoot>
+                            <wadlOptions>
+                                <wadlOption>
+                                    <wadl>${contract.path}/my-rest-service.wadl</wadl>
+                                    <packagename>${generated-sources.package}</packagename>
+                                    <schemaPackagenames>
+                                        <schemaPackagename>${service.namespace}=${generated-sources.package}</schemaPackagename>
+                                    </schemaPackagenames>
+                                    <bindingFiles>
+                                        <bindingFile>${contract.path}/my-rest-service.xjb</bindingFile>
+                                    </bindingFiles>
+                                    <extraargs>
+                                        <extraarg>-catalog</extraarg>
+                                        <extraarg>${contract.path}/catalog.cat</extraarg>
+
+                                        <extraarg>-resource</extraarg>
+                                        <extraarg>MyService</extraarg>
+
+                                        <extraarg>-xjc-Xvalue-constructor</extraarg>
+                                    </extraargs>
+                                </wadlOption>
+                            </wadlOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jvnet.jaxb2_commons</groupId>
+                        <artifactId>jaxb2-value-constructor</artifactId>
+                        <version>3.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+    <properties>
+        <generated-sources.package>ychernenko.examples.rest.api</generated-sources.package>
+        <service.namespace>http://ychernenko.com/my</service.namespace>
+        <contract.path>${project.basedir}/src/main/resources/META-INF/contract</contract.path>
+    </properties>
+</project>
+        

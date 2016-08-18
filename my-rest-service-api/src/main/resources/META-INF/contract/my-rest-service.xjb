@@ -1,0 +1,12 @@
+<bindings xmlns="http://java.sun.com/xml/ns/jaxb"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+          schemaLocation="my-rest-service.xsd"
+          version="2.0">
+
+    <globalBindings>
+        <xjc:javaType name="java.util.Date" xmlType="xs:dateTime" adapter="ychernenko.examples.rest.api.adapters.DateTimeAdapter"/>
+        <xjc:javaType name="java.util.Date" xmlType="xs:date" adapter="ychernenko.examples.rest.api.adapters.DateTimeAdapter"/>
+        <xjc:javaType name="java.util.Date" xmlType="xs:time" adapter="ychernenko.examples.rest.api.adapters.DateTimeAdapter"/>
+    </globalBindings>
+</bindings>

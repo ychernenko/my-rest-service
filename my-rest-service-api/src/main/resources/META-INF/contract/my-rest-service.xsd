@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema version="1.0"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:my="http://ychernenko.com/my"
+        targetNamespace="http://ychernenko.com/my">
+
+    <complexType name="books">
+        <sequence>
+            <element name="book" type="my:book" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="book">
+        <sequence>
+            <element name="isbn" type="long"/>
+            <element name="title" type="string"/>
+            <element name="year" type="int"/>
+            <element name="authors" type="my:authors" minOccurs="0"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="authors">
+        <sequence>
+            <element name="author" type="my:author" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="author">
+        <sequence>
+            <element name="name" type="string"/>
+            <element name="birth" type="date"/>
+            <element name="books" type="my:books" minOccurs="0"/>
+        </sequence>
+    </complexType>
+
+</schema>
+

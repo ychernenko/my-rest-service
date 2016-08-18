@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<application
+        xmlns="http://wadl.dev.java.net/2009/02"
+        xmlns:my="http://ychernenko.com/my"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <grammars>
+        <include href="http://ychernenko.com/my"/>
+    </grammars>
+
+    <resources>
+        <resource path="library">
+            <resource path="books">
+                <method id="getBooksByTitle" name="GET">
+                    <request>
+                        <param name="title" style="query" required="true" type="xs:string"/>
+                    </request>
+                    <response status="200">
+                        <representation href="#books"/>
+                    </response>
+                </method>
+                <method id="putBook" name="PUT">
+                    <request>
+                        <representation href="#book"/>
+                    </request>
+                    <response status="200">
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+                <resource path="author">
+                    <method id="getBooksByAuthorName" name="GET">
+                        <request>
+                            <param name="name" style="query" required="true" type="xs:string"/>
+                        </request>
+                        <response status="200">
+                            <representation href="#books"/>
+                        </response>
+                    </method>
+                </resource>
+            </resource>
+            <resource path="authors">
+                <method id="getAuthorByName" name="GET">
+                    <request>
+                        <param name="name" style="query" required="true" type="xs:string"/>
+                    </request>
+                    <response status="200">
+                        <representation href="#authors"/>
+                    </response>
+                </method>
+                <resource path="book">
+                    <method id="getAuthorByBookTitle" name="GET">
+                        <request>
+                            <param name="title" style="query" required="true" type="xs:string"/>
+                        </request>
+                        <response status="200">
+                            <representation href="#authors"/>
+                        </response>
+                    </method>
+                </resource>
+            </resource>
+        </resource>
+    </resources>
+
+    <representation id="book" element="my:book" mediaType="application/json"/>
+    <representation id="books" element="my:books" mediaType="application/json"/>
+    <representation id="authors" element="my:authors" mediaType="application/json"/>
+
+</application>
